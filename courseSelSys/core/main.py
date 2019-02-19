@@ -1,3 +1,7 @@
+import sys
+from conf import config
+from core.manager import Manager
+
 def login():
     '''
     登录函数，应该先到conf.config文件中读取userinfo的文件路径
@@ -8,8 +12,15 @@ def login():
     '''
     usr = input("请输入账号：")
     pwd = input("请输入密码：")
-
-    pass
+    userinfo_path = config.userinfo
+    with open(userinfo_path, encoding = 'utf-8') as f:
+        for line in f:
+            username,passwd,role = line.strip().split('|')
+            if username == usr and passwd == pwd:
+                print('\033[1;32m登录成功!\033[0m')
+                return {'username':usr, 'role':role}
+            else:
+                print('\033[1;31m登录失败！\033[0m')
 
 def main():
     '''
@@ -20,5 +31,15 @@ def main():
     
     :return: 
     '''
-    print("欢迎进入选课系统！")
-    login()
+    print("\033[1;42m欢迎进入选课系统！\033[0m")
+    ret = login()
+    if ret:
+        role_class = getattr(sys.modules[__name__],ret['role'])#得到与role相同的类
+        obj = role_class(ret['username'])#实例化对象
+        for i,j in enumerate(role_class.menu,1):
+            print(i,j[0])
+        try:
+            ret = int(input("请输入操作序号："))
+            getattr(obj,role_class.menu[ret-1][1])()
+        except:
+            print('对不起，您输入的内容有误！')
