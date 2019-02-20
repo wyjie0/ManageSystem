@@ -1,3 +1,6 @@
 userinfo = r'E:\ManageSystem\courseSelSys\db\userinfo'
-schoolinfo = r'E:\ManageSystem\courseSelSys\db\school_info'
+school_info = r'E:\ManageSystem\courseSelSys\db\school_info'
 teacher_obj = r'E:\ManageSystem\courseSelSys\db\teacher_obj'
+course_obj = r'E:\ManageSystem\courseSelSys\db\course_obj'
+classes_obj = r'E:\ManageSystem\courseSelSys\db\classes_obj'
+student_info = r'E:\ManageSystem\courseSelSys\db\student_info'

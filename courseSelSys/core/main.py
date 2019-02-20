@@ -1,6 +1,6 @@
 import sys
-from conf import config
-from core.manager import Manager
+from courseSelSys.conf import config
+from courseSelSys.core.manager import Manager
 
 def login():
     '''
@@ -36,10 +36,11 @@ def main():
     if ret:
         role_class = getattr(sys.modules[__name__],ret['role'])#得到与role相同的类
         obj = role_class(ret['username'])#实例化对象
-        for i,j in enumerate(role_class.menu,1):
-            print(i,j[0])
-        try:
-            ret = int(input("请输入操作序号："))
-            getattr(obj,role_class.menu[ret-1][1])()
-        except:
-            print('对不起，您输入的内容有误！')
+        while True:
+            for i,j in enumerate(role_class.menu,1):
+                print(i,j[0])
+            try:
+                ret = int(input("请输入操作序号："))
+                getattr(obj,role_class.menu[ret-1][1])()
+            except:
+                print('对不起，您输入的内容有误！')
